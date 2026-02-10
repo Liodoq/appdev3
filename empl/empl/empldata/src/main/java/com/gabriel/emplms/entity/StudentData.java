@@ -8,13 +8,14 @@ import java.util.Date;
 
 @Data
 @Entity
-@Table(name = "employee_data")
-public class EmployeeData {
+@Table(name = "student_data")
+public class StudentData {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String name;
-    private String description;
+    private String course;
+    private String studentNumber;
 
     @UpdateTimestamp
     @Temporal(TemporalType.TIMESTAMP)

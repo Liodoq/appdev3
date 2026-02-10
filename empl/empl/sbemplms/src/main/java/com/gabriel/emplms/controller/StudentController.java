@@ -1,6 +1,6 @@
 package com.gabriel.emplms.controller;
-import com.gabriel.emplms.model.Employee;
-import com.gabriel.emplms.service.EmployeeService;
+import com.gabriel.emplms.model.Student;
+import com.gabriel.emplms.service.StudentService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,18 +9,18 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 @RestController
-public class EmployeeController {
-	Logger logger = LoggerFactory.getLogger( EmployeeController.class);
+public class StudentController {
+	Logger logger = LoggerFactory.getLogger( StudentController.class);
 	@Autowired
-	private EmployeeService employeeService;
-	@GetMapping("/api/employee")
-	public ResponseEntity<?> listEmployee()
+	private StudentService StudentService;
+	@GetMapping("/api/Student")
+	public ResponseEntity<?> listStudent()
 {
 		HttpHeaders headers = new HttpHeaders();
 		ResponseEntity<?> response;
 		try {
-			Employee[] employees = employeeService.getAll();
-			response =  ResponseEntity.ok().headers(headers).body(employees);
+			Student[] Students = StudentService.getAll();
+			response =  ResponseEntity.ok().headers(headers).body(Students);
 		}
 		catch( Exception ex)
 		{
@@ -28,48 +28,48 @@ public class EmployeeController {
 		}
 		return response;
 	}
-	@PutMapping("api/employee")
-	public ResponseEntity<?> add(@RequestBody Employee employee){
-		logger.info("Input >> " + employee.toString() );
+	@PutMapping("api/Student")
+	public ResponseEntity<?> add(@RequestBody Student Student){
+		logger.info("Input >> " + Student.toString() );
 		HttpHeaders headers = new HttpHeaders();
 		ResponseEntity<?> response;
 		try {
-			Employee newEmployee = employeeService.create(employee);
-			logger.info("created employee >> " + newEmployee.toString() );
-			response = ResponseEntity.ok(newEmployee);
+			Student newStudent = StudentService.create(Student);
+			logger.info("created Student >> " + newStudent.toString() );
+			response = ResponseEntity.ok(newStudent);
 		}
 		catch( Exception ex)
 		{
-			logger.error("Failed to retrieve employee with id : {}", ex.getMessage(), ex);
+			logger.error("Failed to retrieve Student with id : {}", ex.getMessage(), ex);
 			response = ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ex.getMessage());
 		}
 		return response;
 	}
-	@PostMapping("api/employee")
-	public ResponseEntity<?> update(@RequestBody Employee employee){
-		logger.info("Update Input >> employee.toString() ");
+	@PostMapping("api/Student")
+	public ResponseEntity<?> update(@RequestBody Student Student){
+		logger.info("Update Input >> Student.toString() ");
 		HttpHeaders headers = new HttpHeaders();
 		ResponseEntity<?> response;
 		try {
-			Employee newEmployee = employeeService.update(employee);
-			response = ResponseEntity.ok(newEmployee);
+			Student newStudent = StudentService.update(Student);
+			response = ResponseEntity.ok(newStudent);
 		}
 		catch( Exception ex)
 		{
-			logger.error("Failed to retrieve employee with id : {}", ex.getMessage(), ex);
+			logger.error("Failed to retrieve Student with id : {}", ex.getMessage(), ex);
 			response = ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ex.getMessage());
 		}
 		return response;
 	}
 
-	@GetMapping("api/employee/{id}")
+	@GetMapping("api/Student/{id}")
 	public ResponseEntity<?> get(@PathVariable final Integer id){
-		logger.info("Input employee id >> " + Integer.toString(id));
+		logger.info("Input Student id >> " + Integer.toString(id));
 		HttpHeaders headers = new HttpHeaders();
 		ResponseEntity<?> response;
 		try {
-			Employee employee = employeeService.get(id);
-			response = ResponseEntity.ok(employee);
+			Student Student = StudentService.get(id);
+			response = ResponseEntity.ok(Student);
 		}
 		catch( Exception ex)
 		{
@@ -77,13 +77,13 @@ public class EmployeeController {
 		}
 		return response;
 	}
-	@DeleteMapping("api/employee/{id}")
+	@DeleteMapping("api/Student/{id}")
 	public ResponseEntity<?> delete(@PathVariable final Integer id){
 		logger.info("Input >> " + Integer.toString(id));
 		HttpHeaders headers = new HttpHeaders();
 		ResponseEntity<?> response;
 		try {
-			employeeService.delete(id);
+			StudentService.delete(id);
 			response = ResponseEntity.ok(null);
 		}
 		catch( Exception ex)
